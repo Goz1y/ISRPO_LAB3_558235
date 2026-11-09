@@ -1,0 +1,107 @@
+{
+  "name": "fastcomments",
+  "displayName": "Fastcomments",
+  "description": "Плагин для быстрой вставки комментариев к функциям C/C++",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.140.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "fastcomments.insertComment",
+        "title": "FastComments: Вставить комментарий"
+      },
+      {
+        "command": "fastcomments.showTelemetry",
+        "title": "FastComments: Показать статистику"
+      },
+      {
+        "command": "fastcomments.openKeybindings",
+        "title": "FastComments: Изменить горячие клавиши"
+      },
+      {
+        "command": "fastcomments.toggleInsertPosition",
+        "title": "FastComments: Переключить режим вставки"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "fastcomments.insertComment",
+        "key": "ctrl+alt+c",
+        "mac": "cmd+alt+c",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "fastcomments.showTelemetry",
+        "key": "ctrl+alt+9",
+        "mac": "cmd+alt+9"
+      },
+      {
+        "command": "fastcomments.openKeybindings",
+        "key": "ctrl+alt+]",
+        "mac": "cmd+alt+]"
+      },
+      {
+        "command": "fastcomments.toggleInsertPosition",
+        "key": "ctrl+alt+p",
+        "mac": "cmd+alt+p"
+      }
+    ],
+    "configuration": {
+      "title": "FastComments",
+      "properties": {
+        "fastcomments.commentTemplate": {
+          "type": "string",
+          "default": "/*\n${functionName}(${argumentsSignature}) - описание функции\n${argumentsDocs}\nпример использования: ${functionName}(${argumentsNames}) = ...\n*/",
+          "description": "Шаблон комментария. Доступные переменные: ${functionName}, ${argumentsSignature}, ${argumentsDocs}, ${argumentsNames}."
+        },
+        "fastcomments.insertPosition": {
+          "type": "string",
+          "enum": [
+            "before",
+            "inside"
+          ],
+          "enumDescriptions": [
+            "Перед функцией",
+            "В начале тела функции (после открывающей скобки)"
+          ],
+          "default": "inside",
+          "description": "Куда вставлять шаблонный комментарий."
+        },
+        "fastcomments.enableTelemetry": {
+          "type": "boolean",
+          "default": true,
+          "description": "Собирать статистику использования плагина."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.140.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "24.x",
+    "typescript-eslint": "^8.61.1",
+    "eslint": "^10.5.0",
+    "typescript": "^6.0.3",
+    "@vscode/test-cli": "^0.0.15",
+    "@vscode/test-electron": "^3.0.0"
+  },
+  "overrides": {
+    "diff": "^8.0.4",
+    "serialize-javascript": "^7.0.6"
+  }
+}
